@@ -1,0 +1,17 @@
+{% block main_content %}
+    <div>
+        <h2>{{ 'title_list_exceptions'|trans([], 'SonataPageBundle') }}</h2>
+
+        <ul>
+            {% if httpErrorCodes %}
+                {% for code, page in httpErrorCodes %}
+                    <li>
+                        <a href="{{ path('sonata_page_exceptions_edit', {'code': code}) }}">
+                            {{ 'manage_exception'|trans({'%code%': code}, 'SonataPageBundle') }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+{% endblock%}

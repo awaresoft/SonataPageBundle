@@ -1,0 +1,77 @@
+<div class="page-seo__information">
+    {% if not page.hybrid %}
+        {% if page.title %}
+            {% if page.title |length > 0 and page.title |length <= 20 %}
+                <div class="label label-warning">
+                    T 30%
+                </div>
+            {% endif %}
+            {% if page.title |length > 20 and page.title |length <= 40 %}
+                <div class="label label-success">
+                    T 60%
+                </div>
+            {% endif %}
+            {% if page.title |length > 40 and page.title |length <= 70 %}
+                <div class="label label-success">
+                    T 100%
+                </div>
+            {% endif %}
+            {% if page.title |length > 70 %}
+                <div class="label label-warning">
+                    T 30%
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="label label-danger">
+                T 0%
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="label label-default">
+            T ?
+        </div>
+    {% endif %}
+
+    {% if not page.hybrid %}
+        {% if page.metaDescription %}
+            {% if page.metaDescription |length > 0 and page.metaDescription |length <= 32 %}
+                <div class="label label-danger">
+                    D 20%
+                </div>
+            {% endif %}
+            {% if page.metaDescription |length > 32 and page.metaDescription |length <= 64 %}
+                <div class="label label-danger">
+                    D 40%
+                </div>
+            {% endif %}
+            {% if page.metaDescription |length > 64 and page.metaDescription |length <= 96 %}
+                <div class="label label-warning">
+                    D 60%
+                </div>
+            {% endif %}
+            {% if page.metaDescription |length > 96 and page.metaDescription |length <= 128 %}
+                <div class="label label-success">
+                    D 80%
+                </div>
+            {% endif %}
+            {% if page.metaDescription |length > 128 and page.metaDescription |length <= 160 %}
+                <div class="label label-success">
+                    D 100%
+                </div>
+            {% endif %}
+            {% if page.metaDescription |length > 160 %}
+                <div class="label label-danger">
+                    D 20%
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="label label-danger">
+                D 0%
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="label label-default">
+            D ?
+        </div>
+    {% endif %}
+</div>

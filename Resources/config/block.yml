@@ -1,0 +1,28 @@
+services:
+    sonata.page.block.shared_block:
+        class: Awaresoft\Sonata\PageBundle\Block\SharedBlockBlock
+        tags:
+            - { name: sonata.block }
+        arguments:
+            - sonata.page.block.shared_block
+            - "@templating"
+            - "@service_container"
+            - "@sonata.page.manager.block"
+
+    awaresoft.page.block.welcome:
+        class: Awaresoft\Sonata\PageBundle\Block\WelcomeBlock
+        tags:
+            - { name: sonata.block }
+        arguments:
+            - Introduction (children pages)
+            - "@templating"
+            - "@service_container"
+
+    awaresoft.page.block.seo:
+        class: Awaresoft\Sonata\PageBundle\Block\SEOBlock
+        tags:
+            - { name: sonata.block }
+        arguments:
+            - SEO
+            - "@templating"
+            - "@service_container"

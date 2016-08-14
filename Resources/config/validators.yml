@@ -1,0 +1,7 @@
+services:
+    sonata.page.validator.unique_url:
+        class: Awaresoft\Sonata\PageBundle\Validator\UniqueUrlValidator
+        tags:
+            - { name: validator.constraint_validator, alias: sonata.page.validator.unique_url }
+        arguments:
+            - "@sonata.page.manager.page"

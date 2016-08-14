@@ -1,0 +1,42 @@
+page:
+    admin:
+        help:
+            name: The name identifies page.
+            slug: Slug helps to generate url addres. It is important to fill this field and take care of it to be SEO friendly.
+            url: Url is generated from slug. If you want change this field, first, please change slug field. After that remember to publish the page.
+            redirect_url: If this field will be filled, application will be redirecting request to selected url address.
+            enabled: If page is enable, it will be available for users.
+            hidden: If page is hide, it will not display in menus.
+            cms: If active, page will be configurable in CMS module.
+        sidemenu:
+            compose_page: Composer
+            edit_page: Edit
+            view_page: View
+        edit_publication: Publication
+        seo:
+            seo: SEO
+            view: View list of pages
+            title_0: titles are in very bad condition
+            title_30: titles are in bad condition
+            title_60: titles have to be checked
+            title_100: titles are in good condition
+            description_0: descriptions are in very bad condition
+            description_20: descriptions are in bad condition
+            description_40: descriptions have to be changed
+            description_60: descriptions have to be checked
+            description_80: descriptions are in good condition
+            description_100: descriptions are in very good condition
+            hybrid_count: pages are hybrid
+            hybrid_info: In hybrid pages controllers are responsible for dynamically add SEO tags. Check which pages are hybrid and manually check SEO tags.
+            description_info: Description of pages has to be no longer than 160 characters. Always try to fill as many characters as possible in description fields.
+            title_info: Titles of pages has to be no longer than 70 characters. Always try to write only these phrases which are important. It is not a mistake to write only 30 characters.
+            summary: Summary
+            titles: Titles
+            descriptions: Descriptions
+            remember: Remember
+        menu:
+            cms: CMS
+            seo: SEO
+        legend:
+            title: Helps you to define if SEO title is correct. Take care of the best title. In case of "?" system can not define title automatically. Please check it manually.
+            description: Helps you to define if SEO description is correct. Take care of the best description. In case of "?" system can not define description automatically. Please check it manually.

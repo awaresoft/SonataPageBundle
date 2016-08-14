@@ -1,0 +1,11 @@
+{
+    "name": "awaresoft/SonataPageBundle",
+    "type": "symfony-bundle",
+    "description": "Symfony Awaresoft SonataPageBundle",
+    "require": {
+        "php": ">= 7",
+        "symfony/symfony": "2.*"
+    },"autoload": {
+    "psr-4": { "Awaresoft\\SonataPageBundle\\": "" }
+}
+}

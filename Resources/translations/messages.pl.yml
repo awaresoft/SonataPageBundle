@@ -1,0 +1,42 @@
+page:
+    admin:
+        help:
+            name: Nazwa określa i identyfikuje stronę.
+            slug: Slug pomaga w generowaniu adresu url strony. Zadbaj aby to pole było uzupełnione i przyjazne dla SEO.
+            url: Adres url jest generowany z pola slug. Jeżeli chcesz zmienić adres url, zmnień najpierw pole slug. Po wykonaniu tej operacji, pamiętaj aby opublikować stronę.
+            redirect_url: Jeżeli to pole będzie uzupełnione, aplikacja będzie przekierowywać żądania ze strony na wskazany powyżej adres URL.
+            enabled: Jeżeli strona jest włączona, będzie dostępna dla użytkowników.
+            hidden: Jeżeli strona jest ukryta, nie będzie wyświetlana w menu.
+            cms: Jeżeli pole będzie aktywne, strona będzie widoczna w module CMS.
+        sidemenu:
+            compose_page: Edytor wizualny
+            edit_page: Edycja
+            view_page: Podgląd
+        edit_publication: Publikacja
+        seo:
+            seo: SEO
+            view: Wyświetl listę podstron
+            title_0: Tytuły są w bardzo złej kondycji
+            title_30: Tytuły są w złej kondycji
+            title_60: Tytuły są w dobrej kondycji ale powinny zostać sprawdzone
+            title_100: Tytuły są w dobrej kondycji
+            description_0: Opisy są w bardzo złej kondycji
+            description_20: Opisy są w złej kondycji
+            description_40: Opisy powinny zostać zmienione
+            description_60: Opisy są w dobrej kondycji ale powinny zostać sprawdzone
+            description_80: Opisy są w dobrej kondycji
+            description_100: Opisy są w bardzo złej kondycji
+            hybrid_count: Strony są hybrydowe (wykorzystywane przez programistów)
+            hybrid_info: W stronach hybrydowych programiści ustalają jak mają być wyświetlane SEO metatagi. Sprawdź, które podstrony są hybrydowe i ręcznie zweryfikuj SEO metatagi.
+            description_info: Opisy podstron nie powinny być dłyższe niż 160 znaków. Zawsze staraj się wykorzystywać maksymalną liczbę dozwolonych znaków.
+            title_info: Tytuły nie powinny być dłuższe niż 70 znaków. Zawsze muszą być uzupełnione. Staraj się nie wykorzystywać maksymalnej liczby dozwolonych znaków. Dodawaj treściwe tytuły określające treść znajdującą się na podstronie.
+            summary: Podsumowanie
+            titles: Tytuły
+            descriptions: Opisy
+            remember: Zapamietaj
+        menu:
+            cms: CMS
+            seo: SEO
+        legend:
+            title: Określa w jakim procencie uzupełnione jest poprawnie pole SEO tytuł. Zadbaj o jak najlepszy tytuł. W przypadku "?" system nie może okreslić samodzielnie czy tytuł jest poprawny i należy go sprawdzić ręcznie.
+            description: Określa w jakim procencie uzupełnione jest poprawnie pole SEO opis. Zadbaj o jak najlepszy opis. W przypadku "?" system nie może okreslić samodzielnie czy opis jest poprawny i należy go sprawdzić ręcznie.

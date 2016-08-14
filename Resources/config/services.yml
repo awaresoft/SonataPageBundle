@@ -1,0 +1,82 @@
+services:
+    sonata.page.route.page.generator:
+        class: Awaresoft\Sonata\PageBundle\Route\RoutePageGenerator
+        arguments:
+            - "@router.default"
+            - "@sonata.page.manager.page"
+            - "@sonata.page.decorator_strategy"
+            - "@sonata.page.kernel.exception_listener"
+
+    sonata.page.response_listener:
+        class: Awaresoft\Sonata\PageBundle\Listener\ResponseListener
+        scope: request
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onCoreResponse, priority: -1 }
+        arguments:
+            - "@sonata.page.cms_manager_selector"
+            - "@sonata.page.page_service_manager"
+            - "@sonata.page.decorator_strategy"
+            - "@templating"
+            - "@service_container"
+
+    sonata.page.transformer:
+        class: Awaresoft\Sonata\PageBundle\Entity\Transformer
+        arguments:
+            - "@sonata.page.manager.snapshot"
+            - "@sonata.page.manager.page"
+            - "@sonata.page.manager.block"
+            - "@doctrine"
+
+    sonata.page.site.selector.host_with_path_by_locale:
+        class: Awaresoft\Sonata\PageBundle\Site\HostPathByLocaleSiteSelector
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 47 }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequestRedirect, priority: 0 }
+        arguments:
+            - "@sonata.page.manager.site"
+            - "@sonata.page.decorator_strategy"
+            - "@sonata.seo.page"
+            - "@service_container"
+
+    sonata.page.page_service_manager:
+        class: Awaresoft\Sonata\PageBundle\Page\PageServiceManager
+        arguments:
+            - "@router"
+        calls:
+            - [ setDefault, ["@sonata.page.service.default"] ]
+
+    sonata.page.service.default:
+        class: Awaresoft\Sonata\PageBundle\Page\Service\DefaultPageService
+        tags:
+            - { name: sonata.page }
+        arguments:
+            - Default
+            - "@sonata.page.template_manager"
+            - "@sonata.seo.page"
+
+    awaresoft.page.manager.page:
+        class: Awaresoft\Sonata\PageBundle\Entity\PageManager
+        arguments:
+            - "%sonata.page.page.class%"
+            - "@service_container"
+            - "@doctrine"
+            - []
+            - []
+
+    awaresoft.page.listener.controller:
+        class: Awaresoft\Sonata\PageBundle\Listener\ControllerListener
+        scope: request
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 0 }
+        arguments:
+            - "@sonata.page.cms_manager_selector"
+            - "@sonata.page.page_service_manager"
+            - "@sonata.seo.page.default"
+            - "@awaresoft.setting"
+
+    awaresoft.page.twig.shared_block_extension:
+        class: Awaresoft\Sonata\PageBundle\Twig\SharedBlockExtension
+        tags:
+            - { name: twig.extension }
+        calls:
+            - [ setContainer, ["@service_container"]]

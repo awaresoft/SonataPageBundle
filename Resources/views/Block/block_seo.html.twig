@@ -1,0 +1,56 @@
+{% extends sonata_block.templates.block_base %}
+
+{% block block %}
+    <div class="sonata-news-block-recent-comment panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title sonata-news-block-recent-comment"><i class="fa fa-globe fa-fw"></i> {{ 'page.admin.seo.seo' |trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="sonata-blog-post-container list-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <h4>{{ 'page.admin.seo.titles' |trans }}</h4>
+                        <p>{{ count['title_0'] }} {{ 'page.admin.seo.title_0' |trans }}</p>
+                        <p>{{ count['title_30'] }} {{ 'page.admin.seo.title_30' |trans }}</p>
+                        <p>{{ count['title_60'] }} {{ 'page.admin.seo.title_60' |trans }}</p>
+                        <p>{{ count['title_100'] }} {{ 'page.admin.seo.title_100' |trans }}</p>
+                        <div class="row">
+                            <div class="col-xs-12 bg-warning">
+                                <h5><strong>{{ 'page.admin.seo.remember' |trans }}</strong></h5>
+                                <p>{{ 'page.admin.seo.title_info' |trans }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <h4>{{ 'page.admin.seo.descriptions' |trans }}</h4>
+                        <p>{{ count['description_0'] }} {{ 'page.admin.seo.description_0' |trans }}</p>
+                        <p>{{ count['description_20'] }} {{ 'page.admin.seo.description_20' |trans }}</p>
+                        <p>{{ count['description_40'] }} {{ 'page.admin.seo.description_40' |trans }}</p>
+                        <p>{{ count['description_60'] }} {{ 'page.admin.seo.description_60' |trans }}</p>
+                        <p>{{ count['description_80'] }} {{ 'page.admin.seo.description_80' |trans }}</p>
+                        <p>{{ count['description_100'] }} {{ 'page.admin.seo.description_100' |trans }}</p>
+                        <div class="row">
+                            <div class="col-xs-12 bg-warning">
+                                <h5><strong>{{ 'page.admin.seo.remember' |trans }}</strong></h5>
+                                <p>{{ 'page.admin.seo.description_info' |trans }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <h4>{{ 'page.admin.seo.summary' |trans }}</h4>
+                        <p>{{ count['hybrid_pages'] }} {{ 'page.admin.seo.hybrid_count' |trans }}</p>
+                        <div class="row">
+                            <div class="col-xs-12 bg-warning">
+                                <h5><strong>{{ 'page.admin.seo.remember' |trans }}</strong></h5>
+                                <p>{{ 'page.admin.seo.hybrid_info' |trans }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ url('admin_awaresoft_cms_tree') }}" class="btn btn-primary btn-block">
+                <i class="fa fa-list"></i> {{ 'page.admin.seo.view'|trans }}
+            </a>
+        </div>
+    </div>
+{% endblock %}

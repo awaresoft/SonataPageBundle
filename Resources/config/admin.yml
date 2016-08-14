@@ -1,0 +1,43 @@
+parameters:
+    sonata.page.admin.shared_block.class: Awaresoft\Sonata\PageBundle\Admin\SharedBlockAdmin
+    sonata.page.admin.page.class: Awaresoft\Sonata\PageBundle\Admin\PageAdmin
+    sonata.page.admin.block.controller: AwaresoftSonataPageBundle:BlockAdmin
+
+services:
+    awaresoft.page.admin.page.extension:
+        class: Awaresoft\Sonata\PageBundle\Admin\Extension\PageAdminExtension
+        tags:
+            - { name: sonata.admin.extension, target: sonata.page.admin.page }
+
+    awaresoft.page.admin.cms:
+        class: Awaresoft\Sonata\PageBundle\Admin\CMSAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin.admin.menu_group_site_builder, label: page.admin.menu.cms }
+        arguments:
+            - null
+            - "%sonata.page.admin.page.entity%"
+            - "%sonata.page.admin.page.controller%"
+        calls:
+            - [ setTemplate, [edit, AwaresoftSonataPageBundle:CRUD:edit.html.twig]]
+            - [ setTemplate, [list, SonataPageBundle:PageAdmin:list.html.twig]]
+            - [ setTemplate, [tree, AwaresoftSonataPageBundle:PageAdminCustom:tree.html.twig]]
+            - [ setTemplate, [compose, AwaresoftSonataPageBundle:PageAdminCustom:compose.html.twig]]
+            - [ setTemplate, [compose_container_show, SonataPageBundle:PageAdmin:compose_container_show.html.twig]]
+            - [ setTemplate, [select_site, SonataPageBundle:PageAdmin:select_site.html.twig]]
+            - [ setSiteManager, ["@sonata.page.manager.site"]]
+            - [ setCacheManager, ["@sonata.cache.manager"]]
+            - [ setPageManager, ["@sonata.page.manager.page"]]
+            - [ addChild, ["@awaresoft.page.admin.snapshot"]]
+            - [ addChild, ["@sonata.page.admin.block"]]
+
+    awaresoft.page.admin.snapshot:
+        class: Awaresoft\Sonata\PageBundle\Admin\SnapshotAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin.admin.menu_group_site_builder, label: page.admin.menu.snapshot }
+        arguments:
+            - null
+            - "%sonata.page.admin.snapshot.entity%"
+            - AwaresoftSonataPageBundle:SnapshotAdmin
+        calls:
+            - [ setCacheManager, ["@sonata.cache.manager"]]
+            - [ setTranslationDomain, ["%sonata.page.admin.snapshot.translation_domain%"]]
