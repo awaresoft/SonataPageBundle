@@ -1,5 +1,5 @@
 {
-    "name": "awaresoft/SonataPageBundle",
+    "name": "awaresoft/sonata-page-bundle",
     "type": "symfony-bundle",
     "description": "Symfony Awaresoft SonataPageBundle",
     "require": {
