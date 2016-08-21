@@ -25,6 +25,7 @@ class AwaresoftSonataPageExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin.yml');
         $loader->load('block.yml');
+        $loader->load('http_kernel.yml');
         $loader->load('services.yml');
         $loader->load('validators.yml');
     }
