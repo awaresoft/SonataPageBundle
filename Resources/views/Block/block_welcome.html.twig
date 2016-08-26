@@ -2,19 +2,5 @@
 
 
 {% block block %}
-<div {% if block.setting('containerClass') %} class="{{ block.setting('containerClass') }}"{% endif %}>
-    {% for child in children %}
-        <section {% if loop.last %}class="last"{% endif %}>
-            <header>
-                <h2>
-                    <a href="{{ url(child) }}">{{ child.name }}</a>
-                </h2>
-            </header>
-            <article>
-                <p>{{ child.getContent() |truncate(200, true)|striptags|raw }}</p>
-                <a title="{{ 'go_to_page' | trans }} {{ child.name }}" href="{{ url(child) }}">{{ "read_more" |trans }}</a>
-            </article>
-        </section>
-    {% endfor %}
-    <div>
+{#{{ TODO: Need to be overwrite }}#}
 {% endblock %}

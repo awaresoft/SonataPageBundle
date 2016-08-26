@@ -3,11 +3,13 @@
 namespace Awaresoft\Sonata\PageBundle\Listener;
 
 use Awaresoft\RedirectBundle\Exception\RedirectException;
+use Awaresoft\Sonata\AdminBundle\Traits\ControllerHelperTrait;
 use Sonata\PageBundle\CmsManager\CmsManagerSelectorInterface;
 use Sonata\PageBundle\CmsManager\DecoratorStrategyInterface;
 use Sonata\PageBundle\Listener\ExceptionListener as BaseExceptionListener;
 use Sonata\PageBundle\Page\PageServiceManagerInterface;
 use Sonata\PageBundle\Site\SiteSelectorInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -29,20 +31,10 @@ class ExceptionListener extends BaseExceptionListener
     /**
      * ExceptionListener constructor.
      *
-     * @param SiteSelectorInterface $siteSelector
-     * @param CmsManagerSelectorInterface $cmsManagerSelector
-     * @param bool $debug
-     * @param EngineInterface $templating
-     * @param PageServiceManagerInterface $pageServiceManager
-     * @param DecoratorStrategyInterface $decoratorStrategy
-     * @param array $httpErrorCodes
-     * @param null|\Psr\Log\LoggerInterface $logger
      * @param ContainerInterface $container
      */
-    public function __construct(SiteSelectorInterface $siteSelector, CmsManagerSelectorInterface $cmsManagerSelector, $debug, EngineInterface $templating, PageServiceManagerInterface $pageServiceManager, DecoratorStrategyInterface $decoratorStrategy, array $httpErrorCodes, $logger, ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
-        parent::__construct($siteSelector, $cmsManagerSelector, $debug, $templating, $pageServiceManager, $decoratorStrategy, $httpErrorCodes, $logger);
-
         $this->container = $container;
     }
 
@@ -52,9 +44,9 @@ class ExceptionListener extends BaseExceptionListener
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         if ($event->getException() instanceof NotFoundHttpException) {
-            if (class_exists('Awaresoft\RedirectBundle\AwaresoftRedirectBundle')) {
-                $redirectFactory = $this->container->get('awaresoft.redirect.provider.factory');
+            $redirectFactory = $this->container->get('awaresoft.redirect.provider.factory', ContainerInterface::NULL_ON_INVALID_REFERENCE);
 
+            if ($redirectFactory) {
                 $response = $redirectFactory->chainValidator($event->getRequest());
 
                 if ($response instanceof Response) {
@@ -62,7 +54,5 @@ class ExceptionListener extends BaseExceptionListener
                 }
             }
         }
-
-        return parent::onKernelException($event);
     }
 }

@@ -1,15 +1,7 @@
 services:
-    sonata.page.kernel.exception_listener:
+    awaresoft.page.kernel.exception_listener:
         class: Awaresoft\Sonata\PageBundle\Listener\ExceptionListener
         tags:
-            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: -127 }
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: -125 }
         arguments:
-            - "@sonata.page.site.selector"
-            - "@sonata.page.cms_manager_selector"
-            - "%kernel.debug%"
-            - "@templating"
-            - "@sonata.page.page_service_manager"
-            - "@sonata.page.decorator_strategy"
-            - []
-            - "@?logger"
             - "@service_container"
