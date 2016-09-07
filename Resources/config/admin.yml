@@ -2,6 +2,7 @@ parameters:
     sonata.page.admin.shared_block.class: Awaresoft\Sonata\PageBundle\Admin\SharedBlockAdmin
     sonata.page.admin.page.class: Awaresoft\Sonata\PageBundle\Admin\PageAdmin
     sonata.page.admin.block.controller: AwaresoftSonataPageBundle:BlockAdmin
+    sonata.page.admin.site.class: Awaresoft\Sonata\PageBundle\Admin\SiteAdmin
 
 services:
     awaresoft.page.admin.page.extension:
@@ -41,3 +42,4 @@ services:
         calls:
             - [ setCacheManager, ["@sonata.cache.manager"]]
             - [ setTranslationDomain, ["%sonata.page.admin.snapshot.translation_domain%"]]
+
