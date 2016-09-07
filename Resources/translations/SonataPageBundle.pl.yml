@@ -113,7 +113,7 @@ list:
     label_hybrid: Typ strony
     label_name: Nazwa
     label_position: Pozycja
-    label_publication_date_end: Data zakońćzenia publikacji
+    label_publication_date_end: Data zakończenia publikacji
     label_publication_date_start: Data publikacji
     label_type: Typ
     label_updated_at: Zaktualizowno dnia
