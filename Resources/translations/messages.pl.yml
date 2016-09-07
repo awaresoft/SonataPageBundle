@@ -2,7 +2,7 @@ page:
     admin:
         help:
             name: Nazwa określa i identyfikuje stronę.
-            slug: Slug pomaga w generowaniu adresu url strony. Zadbaj aby to pole było uzupełnione i przyjazne dla SEO.
+            slug: Slug pomaga w generowaniu adresu url strony. Pole generowane jest automatycznie na podstawie pola "Nazwa". Zadbaj aby było ono przyjazne dla SEO.
             url: Adres url jest generowany z pola slug. Jeżeli chcesz zmienić adres url, zmnień najpierw pole slug. Po wykonaniu tej operacji, pamiętaj aby opublikować stronę.
             redirect_url: Jeżeli to pole będzie uzupełnione, aplikacja będzie przekierowywać żądania ze strony na wskazany powyżej adres URL.
             enabled: Jeżeli strona jest włączona, będzie dostępna dla użytkowników.

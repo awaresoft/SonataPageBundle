@@ -6,6 +6,7 @@ use Awaresoft\Sonata\AdminBundle\Admin\AbstractAdmin as AwaresoftAbstractAdmin;
 use Awaresoft\Sonata\PageBundle\Entity\Page;
 use Awaresoft\Sonata\PageBundle\Entity\PageRepository;
 use Doctrine\ORM\EntityManager;
+use Gedmo\Sluggable\Util\Urlizer;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -72,17 +73,25 @@ class CMSAdmin extends BasePageAdmin
     }
 
     /**
-     * Set page as a simple page
-     *
-     * @param Page $object
-     *
-     * @return void
+     * @inheritdoc
      */
     public function prePersist($object)
     {
         parent::prePersist($object);
 
         $object->setInCms(true);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function preValidate($object)
+    {
+        parent::preValidate($object);
+
+        if (!$object->getSlug() && $object->isCms()) {
+            $object->setSlug(Urlizer::urlize($object->getName()));
+        }
     }
 
     /**
@@ -231,6 +240,7 @@ class CMSAdmin extends BasePageAdmin
                 $formMapper->with($this->trans('admin.admin.form.group.seo'))
                     ->add('slug', 'text', [
                         'required' => $requiredSlug,
+                        'disabled' => true,
                     ])
                     ->end();
             }
