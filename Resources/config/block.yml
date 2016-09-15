@@ -26,3 +26,12 @@ services:
             - SEO
             - "@templating"
             - "@service_container"
+
+    awaresoft.page.block.raw:
+        class: Awaresoft\Sonata\PageBundle\Block\RawBlock
+        tags:
+            - { name: sonata.block }
+        arguments:
+            - Raw
+            - "@templating"
+            - "@service_container"

@@ -11,11 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class WelcomeService
+ * Class RawBlock
  *
  * @author Bartosz Malec <b.malec@awaresoft.pl>
  */
-class WelcomeBlock extends BaseBlockService
+class RawBlock extends BaseBlockService
 {
 
     /**
@@ -26,8 +26,8 @@ class WelcomeBlock extends BaseBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'template' => 'AwaresoftSonataPageBundle:Block:welcome_block.html.twig',
-            'containerClass' => null
+            'template' => 'AwaresoftSonataPageBundle:Block:raw_block.html.twig',
+            'text' => null
         ));
     }
 
@@ -39,7 +39,7 @@ class WelcomeBlock extends BaseBlockService
     {
         $formMapper->add('settings', 'sonata_type_immutable_array', array(
             'keys' => array(
-                array('containerClass', 'text', array('required' => false)),
+                array('text', 'textarea', array('required' => true)),
             )
         ));
     }
@@ -53,27 +53,10 @@ class WelcomeBlock extends BaseBlockService
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $children = [];
-        $page = $blockContext->getBlock()->getPage();
-
-        foreach ($page->getChildren() as $child) {
-            if ($child->getEnabled() && !$child->getHidden()) {
-                $children[] = $child;
-            }
-        }
-
         return $this->renderResponse($blockContext->getTemplate(), array(
-            'children' => $children,
+            'text' => $blockContext->getBlock()->getSetting('text'),
             'block_context' => $blockContext,
             'block' => $blockContext->getBlock(),
         ), $response);
-    }
-
-    /**
-     * @return PageRepository
-     */
-    protected function getPageRepository()
-    {
-        return $this->getEntityManager()->getRepository('AwaresoftSonataPageBundle:Page');
     }
 }

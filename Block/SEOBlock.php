@@ -29,7 +29,7 @@ class SEOBlock extends BaseBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'template' => 'AwaresoftSonataPageBundle:Block:block_seo.html.twig',
+            'template' => 'AwaresoftSonataPageBundle:Block:seo_block.html.twig',
             'containerClass' => null
         ));
     }
