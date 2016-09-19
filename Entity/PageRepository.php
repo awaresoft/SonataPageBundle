@@ -4,6 +4,7 @@ namespace Awaresoft\Sonata\PageBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Sonata\PageBundle\Model\PageInterface;
+use Sonata\PageBundle\Model\SiteInterface;
 
 /**
  * Page repository class
@@ -12,7 +13,6 @@ use Sonata\PageBundle\Model\PageInterface;
  */
 class PageRepository extends EntityRepository
 {
-
     /**
      * @param Site $site
      * @return \Doctrine\ORM\QueryBuilder
@@ -35,6 +35,20 @@ class PageRepository extends EntityRepository
     }
 
     /**
+     * @param SiteInterface $site
+     * @param $route
+     *
+     * @return null|object
+     */
+    public function findOneBySiteAndRoute(SiteInterface $site, $route)
+    {
+        return $this->findOneBy(array(
+            'site' => $site,
+            'routeName' => $route
+        ));
+    }
+
+    /**
      * @param Site $site
      * @return null|Page
      */
@@ -44,12 +58,7 @@ class PageRepository extends EntityRepository
             $site = $this->_em->getRepository('AwaresoftSonataPageBundle:Site')->findOneBy(array('isDefault' => true));
         }
 
-        return $this->findOneBy(array(
-            'site' => $site,
-            'routeName' => 'homepage'
-        ), array(
-            'id' => 'ASC'
-        ));
+        return $this->findOneBySiteAndRoute($site, 'homepage');
     }
 
     /**
@@ -78,5 +87,4 @@ class PageRepository extends EntityRepository
             'hidden' => false
         ), $orderBy);
     }
-
 }
