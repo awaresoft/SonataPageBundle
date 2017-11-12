@@ -11,7 +11,7 @@ services:
             - { name: sonata.admin.extension, target: sonata.page.admin.page }
 
     awaresoft.page.admin.cms:
-        class: Awaresoft\Sonata\PageBundle\Admin\CMSAdmin
+        class: Awaresoft\Sonata\PageBundle\Admin\CmsAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin.admin.menu_group_site_builder, label: page.admin.menu.cms }
         arguments:

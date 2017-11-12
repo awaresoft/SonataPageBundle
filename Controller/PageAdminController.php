@@ -4,7 +4,7 @@ namespace Awaresoft\Sonata\PageBundle\Controller;
 
 use Sonata\PageBundle\Controller\PageAdminController as BasePageAdminController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Extended PageAdminController class
@@ -53,7 +53,9 @@ class PageAdminController extends BasePageAdminController
         $datagrid = $this->admin->getDatagrid();
         $formView = $datagrid->getForm()->createView();
 
-        $this->get('twig')->getExtension('form')->renderer->setTheme($formView, $this->admin->getFilterTheme());
+        $twig = $this->get('twig');
+        $theme = $this->admin->getFilterTheme();
+        $twig->getRuntime('Symfony\Bridge\Twig\Form\TwigRenderer')->setTheme($formView, $theme);
 
         return $this->render($this->admin->getTemplate('tree'), [
             'action' => 'tree',
@@ -86,5 +88,4 @@ class PageAdminController extends BasePageAdminController
 
         return parent::editAction($id);
     }
-
 }

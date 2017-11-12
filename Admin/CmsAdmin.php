@@ -6,6 +6,7 @@ use Awaresoft\Sonata\AdminBundle\Admin\AbstractAdmin as AwaresoftAbstractAdmin;
 use Awaresoft\Sonata\PageBundle\Entity\Page;
 use Awaresoft\Sonata\PageBundle\Entity\PageRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Gedmo\Sluggable\Util\Urlizer;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -16,11 +17,12 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\PageBundle\Admin\PageAdmin as BasePageAdmin;
 use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\PageBundle\Form\Type\TemplateChoiceType;
 
 /**
  * @author Bartosz Malec <b.malec@awaresoft.pl>
  */
-class CMSAdmin extends BasePageAdmin
+class CmsAdmin extends BasePageAdmin
 {
     protected $baseRouteName = 'admin_awaresoft_cms';
     protected $baseRoutePattern = 'awaresoft/cms';
@@ -199,7 +201,7 @@ class CMSAdmin extends BasePageAdmin
 
         if ($this->getSubject() && $this->getSubject()->getDecorate()) {
             $formMapper->with($this->trans('admin.admin.form.group.main'))
-                ->add('templateCode', 'sonata_page_template', ['required' => true])
+                ->add('templateCode', TemplateChoiceType::class, ['required' => true])
                 ->end();
         }
 
@@ -213,7 +215,7 @@ class CMSAdmin extends BasePageAdmin
 
         if ($this->hasSubject() && !$this->getSubject()->getId()) {
             $formMapper->with($this->trans('admin.admin.form.group.main'))
-                ->add('site', null, ['required' => true, 'read_only' => true])
+                ->add('site', null, ['required' => true, 'attr' => ['readonly' => true]])
                 ->end();
         }
 
@@ -255,11 +257,15 @@ class CMSAdmin extends BasePageAdmin
         if (!$this->getSubject()->isDynamic()) {
             $formMapper->with($this->trans('admin.admin.form.group.seo'), ['collapsed' => true])
                 ->add('title', 'text', [
-                    'max_length' => AwaresoftAbstractAdmin::SEO_TITLE_MAX_LENGTH,
+                    'attr' => [
+                        'max_length' => AwaresoftAbstractAdmin::SEO_TITLE_MAX_LENGTH,
+                    ],
                     'required' => true,
                 ])
                 ->add('metaDescription', 'textarea', [
-                    'max_length' => AwaresoftAbstractAdmin::SEO_DESCRIPTION_MAX_LENGTH,
+                    'attr' => [
+                        'max_length' => AwaresoftAbstractAdmin::SEO_DESCRIPTION_MAX_LENGTH,
+                    ],
                 ])
                 ->end();
         }
@@ -307,41 +313,49 @@ class CMSAdmin extends BasePageAdmin
     /**
      * {@inheritdoc}
      */
-    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    protected function configureTabMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         if (!$childAdmin && !in_array($action, ['edit'])) {
             return;
         }
 
         $admin = $this->isChild() ? $this->getParent() : $this;
+
         $id = $admin->getRequest()->get('id');
 
-        $menu->addChild($this->trans('page.admin.sidemenu.edit_page'), [
-            'uri' => $admin->getRouteGenerator()->generate('admin_awaresoft_cms_edit', ['id' => $id]),
-        ]);
+        $menu->addChild(
+            $this->trans('page.admin.sidemenu.edit_page'),
+            $admin->generateMenuUrl('edit', ['id' => $id])
+        );
 
-        $menu->addChild($this->trans('page.admin.sidemenu.compose_page'), [
-            'uri' => $this->getRouteGenerator()->generate('admin_awaresoft_cms_compose', ['id' => $id]),
-        ]);
+        $menu->addChild(
+            $this->trans('page.admin.sidemenu.compose_page'),
+            $this->generateMenuUrl('compose', ['id' => $id])
+        );
 
 
         if (!$this->getSubject()->isInternal()) {
             if (!$this->getSubject()->isHybrid()) {
                 try {
-                    $menu->addChild($this->trans('page.admin.sidemenu.view_page'), [
-                        'uri' => $this->getRouteGenerator()->generate($this->getSubject()->getRouteName(), ['path' => $this->getSubject()->getUrl()]),
-                        'linkAttributes' => ['target' => '_blank'],
-                    ]);
+                    $menu->addChild(
+                        $this->trans('page.admin.sidemenu.view_page'),
+                        array_merge($this->generateMenuUrl($this->getSubject()->getRouteName(), [
+                            'path' => $this->getSubject()->getUrl()
+                        ]), ['target' => '_blank'])
+                    );
                 } catch (\Exception $e) {
                     // avoid crashing the admin if the route is not setup correctly
 //                throw $e;
                 }
             } else {
                 try {
-                    $menu->addChild($this->trans('page.admin.sidemenu.view_page'), [
-                        'uri' => $this->getRouteGenerator()->generate($this->getSubject()->getRouteName()),
-                        'linkAttributes' => ['target' => '_blank'],
-                    ]);
+                    $menu->addChild(
+                        $this->trans('page.admin.sidemenu.view_page'),
+                        array_merge(
+                            $this->generateMenuUrl($this->getSubject()->getRouteName()),
+                            ['linkAttributes' => ['target' => '_blank']]
+                        )
+                    );
                 } catch (\Exception $e) {
                     // avoid crashing the admin if the route is not setup correctly
 //                throw $e;
@@ -360,11 +374,10 @@ class CMSAdmin extends BasePageAdmin
 
 
     /**
-     * @return PageRepository
+     * @return PageRepository|EntityRepository
      */
     protected function getPageRepository()
     {
         return $this->em->getRepository('AwaresoftSonataPageBundle:Page');
     }
-
 }

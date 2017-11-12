@@ -4,6 +4,7 @@ namespace Awaresoft\Sonata\PageBundle\Admin;
 
 use Sonata\PageBundle\Admin\PageAdmin as BasePageAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\PageBundle\Form\Type\PageTypeChoiceType;
 use Sonata\PageBundle\Model\PageInterface;
 
 /**
@@ -21,7 +22,7 @@ class PageAdmin extends BasePageAdmin
         $datagridMapper
             ->add('site')
             ->add('name')
-            ->add('type', null, ['field_type' => 'sonata_page_type_choice'])
+            ->add('type', null, ['field_type' => PageTypeChoiceType::class])
             ->add('pageAlias')
             ->add('parent', null, [], null, null, [
                 'admin_code' => 'sonata.page.admin.page',

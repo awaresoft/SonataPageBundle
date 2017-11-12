@@ -20,12 +20,12 @@ class PageManager extends BasePageManager
 
     /**
      * @param string $class
-     * @param ContainerInterface $container
      * @param ManagerRegistry $registry
      * @param array $defaults
      * @param array $pageDefaults
+     * @param ContainerInterface $container
      */
-    public function __construct($class, ContainerInterface $container, ManagerRegistry $registry, array $defaults = array(), array $pageDefaults = array())
+    public function __construct($class, ManagerRegistry $registry, array $defaults = array(), array $pageDefaults = array(), ContainerInterface $container)
     {
         parent::__construct($class, $registry, $defaults, $pageDefaults);
 

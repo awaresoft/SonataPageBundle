@@ -1,12 +1,9 @@
-services:
-    sonata.page.route.page.generator:
-        class: Awaresoft\Sonata\PageBundle\Route\RoutePageGenerator
-        arguments:
-            - "@router.default"
-            - "@sonata.page.manager.page"
-            - "@sonata.page.decorator_strategy"
-            - "@sonata.page.kernel.exception_listener"
+parameters:
+    sonata.page.service.class: Awaresoft\Sonata\PageBundle\Page\PageServiceManager
+    sonata.page.service.default.class: Awaresoft\Sonata\PageBundle\Page\Service\DefaultPageService
+    sonata.page.transformer.class: Awaresoft\Sonata\PageBundle\Entity\Transformer
 
+services:
     sonata.page.response_listener:
         class: Awaresoft\Sonata\PageBundle\Listener\ResponseListener
         scope: request
@@ -19,49 +16,14 @@ services:
             - "@templating"
             - "@service_container"
 
-    sonata.page.transformer:
-        class: Awaresoft\Sonata\PageBundle\Entity\Transformer
-        arguments:
-            - "@sonata.page.manager.snapshot"
-            - "@sonata.page.manager.page"
-            - "@sonata.page.manager.block"
-            - "@doctrine"
-
-    sonata.page.site.selector.host_with_path_by_locale:
-        class: Awaresoft\Sonata\PageBundle\Site\HostPathByLocaleSiteSelector
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 47 }
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequestRedirect, priority: 0 }
-        arguments:
-            - "@sonata.page.manager.site"
-            - "@sonata.page.decorator_strategy"
-            - "@sonata.seo.page"
-            - "@service_container"
-
-    sonata.page.page_service_manager:
-        class: Awaresoft\Sonata\PageBundle\Page\PageServiceManager
-        arguments:
-            - "@router"
-        calls:
-            - [ setDefault, ["@sonata.page.service.default"] ]
-
-    sonata.page.service.default:
-        class: Awaresoft\Sonata\PageBundle\Page\Service\DefaultPageService
-        tags:
-            - { name: sonata.page }
-        arguments:
-            - Default
-            - "@sonata.page.template_manager"
-            - "@sonata.seo.page"
-
     awaresoft.page.manager.page:
         class: Awaresoft\Sonata\PageBundle\Entity\PageManager
         arguments:
             - "%sonata.page.page.class%"
-            - "@service_container"
             - "@doctrine"
             - []
             - []
+            - "@service_container"
 
     awaresoft.page.listener.controller:
         class: Awaresoft\Sonata\PageBundle\Listener\ControllerListener

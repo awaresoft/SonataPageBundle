@@ -22,9 +22,13 @@ class RoutePageGenerator extends BaseRoutePageGenerator
      *
      * @return void
      */
-    public function update(SiteInterface $site, OutputInterface $output = null)
+    public function update(SiteInterface $site, OutputInterface $output = null, $clean = false)
     {
-        $message = sprintf(" > <info>Updating core routes for site</info> : <comment>%s - %s</comment>", $site->getName(), $site->getUrl());
+        $message = sprintf(
+            ' > <info>Updating core routes for site</info> : <comment>%s - %s</comment>',
+            $site->getName(),
+            $site->getUrl()
+        );
 
         $this->writeln($output, array(
             str_repeat('=', strlen($message)),
@@ -50,7 +54,9 @@ class RoutePageGenerator extends BaseRoutePageGenerator
                         'name' => $name,
                         'url' => $route->getPath(),
                         'site' => $site,
-                        'requestMethod' => isset($requirements['_method']) ? $requirements['_method'] : 'GET|POST|HEAD|DELETE|PUT',
+                        'requestMethod' => isset($requirements['_method']) ?
+                            $requirements['_method'] :
+                            'GET|POST|HEAD|DELETE|PUT',
                         'slug' => '/',
                     ));
                 }
@@ -60,7 +66,9 @@ class RoutePageGenerator extends BaseRoutePageGenerator
                 'name' => 'Homepage',
                 'url' => '/',
                 'site' => $site,
-                'requestMethod' => isset($requirements['_method']) ? $requirements['_method'] : 'GET|POST|HEAD|DELETE|PUT',
+                'requestMethod' => isset($requirements['_method']) ?
+                    $requirements['_method'] :
+                    'GET|POST|HEAD|DELETE|PUT',
                 'slug' => '/',
             ));
 
@@ -89,7 +97,11 @@ class RoutePageGenerator extends BaseRoutePageGenerator
                 if ($page) {
                     $page->setEnabled(false);
 
-                    $this->writeln($output, sprintf('  <error>DISABLE</error> <error>% -50s</error> %s', $name, $route->getPath()));
+                    $this->writeln($output, sprintf(
+                        '  <error>DISABLE</error> <error>% -50s</error> %s',
+                        $name,
+                        $route->getPath()
+                    ));
                 } else {
                     continue;
                 }
@@ -107,7 +119,9 @@ class RoutePageGenerator extends BaseRoutePageGenerator
                     'name' => $name,
                     'url' => $route->getPath(),
                     'site' => $site,
-                    'requestMethod' => isset($requirements['_method']) ? $requirements['_method'] : 'GET|POST|HEAD|DELETE|PUT',
+                    'requestMethod' => isset($requirements['_method']) ?
+                        $requirements['_method'] :
+                        'GET|POST|HEAD|DELETE|PUT',
                 ));
             }
 
@@ -117,11 +131,18 @@ class RoutePageGenerator extends BaseRoutePageGenerator
 
             $page->setSlug($route->getPath());
             $page->setUrl($route->getPath());
-            $page->setRequestMethod(isset($requirements['_method']) ? $requirements['_method'] : 'GET|POST|HEAD|DELETE|PUT');
+            $page->setRequestMethod(isset($requirements['_method']) ?
+                $requirements['_method'] :
+                'GET|POST|HEAD|DELETE|PUT');
 
             $this->pageManager->save($page);
 
-            $this->writeln($output, sprintf('  <info>%s</info> % -50s %s', $update ? 'UPDATE ' : 'CREATE ', $name, $route->getPath()));
+            $this->writeln($output, sprintf(
+                '  <info>%s</info> % -50s %s',
+                $update ? 'UPDATE ' : 'CREATE ',
+                $name,
+                $route->getPath()
+            ));
         }
 
         // Iterate over error pages
@@ -167,12 +188,18 @@ class RoutePageGenerator extends BaseRoutePageGenerator
                     $this->writeln($output, array('', 'Some hybrid pages does not exist anymore', str_repeat('-', 80)));
                 }
 
-                $this->writeln($output, sprintf('  <error>ERROR</error>   %s', $page->getRouteName()));
+                if ($clean) {
+                    $this->pageManager->delete($page);
+
+                    $this->writeln($output, sprintf('  <error>REMOVED</error>   %s', $page->getRouteName()));
+                } else {
+                    $this->writeln($output, sprintf('  <error>ERROR</error>   %s', $page->getRouteName()));
+                }
             }
         }
 
-        if ($has) {
-            $this->writeln($output, <<<MSG
+        if ($has && !$clean) {
+            $this->writeln($output, <<<'MSG'
 <error>
   *WARNING* : Pages has been updated however some pages do not exist anymore.
               You must remove them manually.

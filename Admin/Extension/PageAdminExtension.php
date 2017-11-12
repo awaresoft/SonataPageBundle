@@ -3,10 +3,7 @@
 namespace Awaresoft\Sonata\PageBundle\Admin\Extension;
 
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Form\FormMapper;
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class PageAdminExtension
@@ -25,8 +22,8 @@ class PageAdminExtension extends AbstractAdminExtension
         // add new field
         $formMapper->add('inCms', 'choice', array(
             'choices' => array(
-                '0' => $formMapper->getAdmin()->trans('admin.admin.label.type_no'),
-                '1' => $formMapper->getAdmin()->trans('admin.admin.label.type_yes'),
+                $formMapper->getAdmin()->trans('admin.admin.label.type_no') => 0,
+                $formMapper->getAdmin()->trans('admin.admin.label.type_yes') => 1,
             ),
         ));
 
