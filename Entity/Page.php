@@ -107,5 +107,4 @@ class Page extends BasePage
     {
         $this->redirectUrl = $redirectUrl;
     }
-
 }

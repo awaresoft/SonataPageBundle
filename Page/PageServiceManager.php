@@ -2,6 +2,7 @@
 
 namespace Awaresoft\Sonata\PageBundle\Page;
 
+use Awaresoft\Sonata\PageBundle\Entity\Page;
 use Sonata\PageBundle\Model\PageInterface;
 use Sonata\PageBundle\Model\SnapshotPageProxy;
 use Sonata\PageBundle\Page\PageServiceManager as BasePageServiceManager;
@@ -25,11 +26,15 @@ class PageServiceManager extends BasePageServiceManager
      */
     protected function createResponse(PageInterface $page)
     {
+        /**
+         * @var $page Page
+         */
         if ($page->getRedirectUrl()) {
             $page->addHeader('Location', $page->getRedirectUrl());
+
             return new Response('', 302, $page->getHeaders() ?: array());
         }
 
-        return parent::createResponse($page);
+        parent::createResponse($page);
     }
 }

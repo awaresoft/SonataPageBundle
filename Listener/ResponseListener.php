@@ -49,7 +49,11 @@ class ResponseListener extends BaseResponseListener
             parent::onCoreResponse($event);
         } catch (InternalErrorException $ex) {
             if ($this->cmsSelector->isEditor()) {
-                throw new InternalErrorException('No page instance available for the url, run the sonata:page:update-core-routes and sonata:page:create-snapshots commands');
+                throw new InternalErrorException(
+                    'No page instance available for the url,
+                    run the sonata:page:update-core-routes
+                    and sonata:page:create-snapshots commands'
+                );
             }
 
             throw new NotFoundHttpException($this->translator->trans('site_not_exists'));

@@ -5,7 +5,6 @@ namespace Awaresoft\Sonata\PageBundle\Block;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\PageBundle\Block\SharedBlockBlockService as BaseSharedBlockBlock;
-use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

@@ -3,6 +3,7 @@
 namespace Awaresoft\Sonata\PageBundle\Model;
 
 use Awaresoft\Sonata\PageBundle\Entity\Block;
+use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\PageBundle\Entity\BasePage;
 
 /**
@@ -186,7 +187,7 @@ abstract class Page extends BasePage
 
     /**
      * @param $blockName
-     * @return Block|null
+     * @return BlockInterface|null
      */
     protected function getBlockByName($blockName)
     {
@@ -198,5 +199,4 @@ abstract class Page extends BasePage
 
         return null;
     }
-
 }

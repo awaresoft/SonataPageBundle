@@ -2,7 +2,6 @@
 
 namespace Awaresoft\Sonata\PageBundle\Command;
 
-use Application\CommentBundle\Entity\Thread;
 use Awaresoft\Sonata\PageBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -53,7 +52,11 @@ class UndecorateCommand extends ContainerAwareCommand
         foreach ($pages as $page) {
             if (!$page->getDecorate()) {
                 if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE) {
-                    $output->writeln(sprintf('Page: %s, site: %s is undecorate.', $page->getRouteName(), $page->getSite()->getName()));
+                    $output->writeln(sprintf(
+                        'Page: %s, site: %s is undecorate.',
+                        $page->getRouteName(),
+                        $page->getSite()->getName()
+                    ));
                 }
 
                 continue;
@@ -61,12 +64,20 @@ class UndecorateCommand extends ContainerAwareCommand
 
             $page->setDecorate(false);
 
-            $logger->info(sprintf('Undecorated page: %s, site: %s', $page->getRouteName(), $page->getSite()->getName()), [
+            $logger->info(sprintf(
+                'Undecorated page: %s, site: %s',
+                $page->getRouteName(),
+                $page->getSite()->getName()
+            ), [
                 'page' => $page,
             ]);
 
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_NORMAL) {
-                $output->writeln(sprintf('Undecorated page: %s, site: %s', $page->getRouteName(), $page->getSite()->getName()));
+                $output->writeln(sprintf(
+                    'Undecorated page: %s, site: %s',
+                    $page->getRouteName(),
+                    $page->getSite()->getName()
+                ));
             }
         }
 

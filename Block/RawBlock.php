@@ -3,7 +3,6 @@
 namespace Awaresoft\Sonata\PageBundle\Block;
 
 use Awaresoft\Sonata\BlockBundle\Block\BaseBlockService;
-use Awaresoft\Sonata\PageBundle\Entity\PageRepository;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Model\BlockInterface;

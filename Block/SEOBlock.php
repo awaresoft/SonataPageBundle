@@ -3,13 +3,8 @@
 namespace Awaresoft\Sonata\PageBundle\Block;
 
 use Awaresoft\Sonata\BlockBundle\Block\BaseBlockService;
-use Awaresoft\BlockBundle\Entity\Block;
-use Awaresoft\BlockBundle\Exception\BlockNotExistsException;
-use Awaresoft\BlockBundle\Exception\TemplateNotFoundException;
 use Sonata\BlockBundle\Block\BlockContextInterface;
-use Sonata\BlockBundle\Model\BlockInterface;
 use Sonata\PageBundle\Model\PageInterface;
-use Sonata\PageBundle\Model\SnapshotPageProxy;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -122,5 +117,4 @@ class SEOBlock extends BaseBlockService
 
         return $count;
     }
-
 }

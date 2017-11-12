@@ -44,7 +44,10 @@ class ExceptionListener extends BaseExceptionListener
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         if ($event->getException() instanceof NotFoundHttpException) {
-            $redirectFactory = $this->container->get('awaresoft.redirect.provider.factory', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+            $redirectFactory = $this->container->get(
+                'awaresoft.redirect.provider.factory',
+                ContainerInterface::NULL_ON_INVALID_REFERENCE
+            );
 
             if ($redirectFactory) {
                 $response = $redirectFactory->chainValidator($event->getRequest());
