@@ -18,6 +18,7 @@ use Sonata\CoreBundle\Validator\ErrorElement;
 use Sonata\PageBundle\Admin\PageAdmin as BasePageAdmin;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\PageBundle\Form\Type\TemplateChoiceType;
+use Sonata\PageBundle\Model\PageInterface;
 
 /**
  * @author Bartosz Malec <b.malec@awaresoft.pl>
@@ -319,6 +320,11 @@ class CmsAdmin extends BasePageAdmin
             return;
         }
 
+        /**
+         * @var $subject PageInterface
+         */
+        $subject = $this->getSubject();
+
         $admin = $this->isChild() ? $this->getParent() : $this;
 
         $id = $admin->getRequest()->get('id');
@@ -333,32 +339,28 @@ class CmsAdmin extends BasePageAdmin
             $this->generateMenuUrl('compose', ['id' => $id])
         );
 
-
-        if (!$this->getSubject()->isInternal()) {
-            if (!$this->getSubject()->isHybrid()) {
+        if (!$subject->isInternal()) {
+            if (!$subject->isHybrid()) {
                 try {
-                    $menu->addChild(
-                        $this->trans('page.admin.sidemenu.view_page'),
-                        array_merge($this->generateMenuUrl($this->getSubject()->getRouteName(), [
+                    $menu->addChild($this->trans('page.admin.sidemenu.view_page'), [
+                        'uri' => $this->getRouteGenerator()->generate($this->getSubject()->getRouteName(), [
                             'path' => $this->getSubject()->getUrl()
-                        ]), ['target' => '_blank'])
-                    );
+                        ]),
+                        'linkAttributes' => ['target' => '_blank'],
+                    ]);
                 } catch (\Exception $e) {
                     // avoid crashing the admin if the route is not setup correctly
-//                throw $e;
+                    // throw $e;
                 }
             } else {
                 try {
-                    $menu->addChild(
-                        $this->trans('page.admin.sidemenu.view_page'),
-                        array_merge(
-                            $this->generateMenuUrl($this->getSubject()->getRouteName()),
-                            ['linkAttributes' => ['target' => '_blank']]
-                        )
-                    );
+                    $menu->addChild($this->trans('page.admin.sidemenu.view_page'), [
+                        'uri' => $this->getRouteGenerator()->generate($this->getSubject()->getRouteName()),
+                        'linkAttributes' => ['target' => '_blank'],
+                    ]);
                 } catch (\Exception $e) {
                     // avoid crashing the admin if the route is not setup correctly
-//                throw $e;
+                    // throw $e;
                 }
             }
         }
