@@ -3,6 +3,14 @@ parameters:
     sonata.page.service.default.class: Awaresoft\Sonata\PageBundle\Page\Service\DefaultPageService
     sonata.page.transformer.class: Awaresoft\Sonata\PageBundle\Entity\Transformer
     sonata.page.route.page.generator.class: Awaresoft\Sonata\PageBundle\Route\RoutePageGenerator
+    awaresoft.page.shared_block.disabled_block_list:
+        - sonata.block.service.container
+        - sonata.block.service.menu
+        - sonata.page.block.container
+        - sonata.page.block.shared_block
+        - sonata.page.block.children_pages
+        - awaresoft.breadcrumb.block.breadcrumb
+        - awaresoft.dynamic_block.block.dynamic_block
 
 services:
     sonata.page.response_listener:

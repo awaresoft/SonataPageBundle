@@ -14,15 +14,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class BlockAdminController extends BaseBlockAdminController
 {
-    const DISABLED_SERVICES = [
-        'sonata.block.service.container',
-        'sonata.block.service.menu',
-        'sonata.page.block.container',
-        'sonata.page.block.shared_block',
-        'awaresoft.breadcrumb.block.breadcrumb',
-        'awaresoft.dynamic_block.block.dynamic_block',
-    ];
-
     /**
      * {@inheritdoc}
      */
@@ -36,11 +27,12 @@ class BlockAdminController extends BaseBlockAdminController
         }
 
         $parameters = $this->admin->getPersistentParameters();
+        $disabledBlocks = $this->getParameter('awaresoft.page.shared_block.disabled_block_list');
 
         if (!$parameters['type']) {
             return $this->render('SonataPageBundle:BlockAdmin:select_type.html.twig', [
                 'services' => $this->get('sonata.block.manager')->getServicesByContext('sonata_page_bundle'),
-                'disabledServices' => self::DISABLED_SERVICES,
+                'disabledServices' => $disabledBlocks,
                 'base_template' => $this->getBaseTemplate(),
                 'admin' => $this->admin,
                 'action' => 'create',
