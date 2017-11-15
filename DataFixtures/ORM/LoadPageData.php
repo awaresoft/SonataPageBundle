@@ -251,7 +251,7 @@ CONTENT
         $global->addBlocks($header = $blockInteractor->createNewContainer(array(
             'enabled' => true,
             'page' => $global,
-            'code' => 'header',
+            'code' => 'global_header',
         )));
 
         $header->setName('Header (global)');
@@ -261,7 +261,7 @@ CONTENT
         $global->addBlocks($breadcrumb = $blockInteractor->createNewContainer(array(
             'enabled' => true,
             'page' => $global,
-            'code' => 'breadcrumb',
+            'code' => 'global_breadcrumb',
         )));
 
         $breadcrumb->setName('Breadcrumb');
@@ -271,7 +271,7 @@ CONTENT
         $global->addBlocks($content = $blockInteractor->createNewContainer(array(
             'enabled' => true,
             'page' => $global,
-            'code' => 'content',
+            'code' => 'global_content',
         )));
 
         $content->setName('Content (global)');
@@ -281,7 +281,7 @@ CONTENT
         $global->addBlocks($footer = $blockInteractor->createNewContainer(array(
             'enabled' => true,
             'page'    => $global,
-            'code'    => 'footer'
+            'code'    => 'global_footer'
         )));
 
         $footer->setName('Footer global');
@@ -291,7 +291,7 @@ CONTENT
         $global->addBlocks($bottomFooter = $blockInteractor->createNewContainer(array(
             'enabled' => true,
             'page'    => $global,
-            'code'    => 'footer_bottom'
+            'code'    => 'global_footer_bottom'
         )));
 
         $bottomFooter->setName('Footer Bottom (global)');
@@ -301,7 +301,7 @@ CONTENT
         $global->addBlocks($extra = $blockInteractor->createNewContainer(array(
             'enabled' => true,
             'page'    => $global,
-            'code'    => 'extra'
+            'code'    => 'global_extra'
         )));
 
         $extra->setName('Extra (global)');
