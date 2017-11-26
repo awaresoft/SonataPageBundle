@@ -242,8 +242,7 @@ class CmsAdmin extends BasePageAdmin
             if (!$this->isHomepage()) {
                 $formMapper->with($this->trans('admin.admin.form.group.seo'))
                     ->add('slug', 'text', [
-                        'required' => $requiredSlug,
-                        'disabled' => true,
+                        'required' => $requiredSlug
                     ])
                     ->end();
             }
