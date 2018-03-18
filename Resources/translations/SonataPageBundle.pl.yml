@@ -1,4 +1,5 @@
 form.label_in_cms: CMS
+form.label_route_name: Nazwa ścieżki
 site: Witryna
 page.admin.help.cms: Określa czy strona ma być dostępna w module CMS.
 

@@ -2,6 +2,7 @@
 
 namespace Awaresoft\Sonata\PageBundle\Admin;
 
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\PageBundle\Admin\PageAdmin as BasePageAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\PageBundle\Form\Type\PageTypeChoiceType;
@@ -44,5 +45,23 @@ class PageAdmin extends BasePageAdmin
                 ],
                 'field_type' => 'choice',
             ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        parent::configureFormFields($formMapper);
+
+        $formMapper
+            ->with('form_page.group_main_label')
+                ->add('routeName', null, [
+                    'required' => false,
+                    'attr' => [
+                        'readonly' => true,
+                    ]
+                ])
+            ->end();
     }
 }

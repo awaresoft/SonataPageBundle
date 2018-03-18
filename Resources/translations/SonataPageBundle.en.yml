@@ -1,3 +1,4 @@
 form.label_in_cms: CMS
+form.label_route_name: Route name
 site: Site
 page.admin.help.cms: Page will be available in CMS module
