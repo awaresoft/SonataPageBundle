@@ -3,12 +3,14 @@
     "type": "symfony-bundle",
     "description": "Symfony Awaresoft SonataPageBundle",
     "require": {
-        "php": ">= 7",
-        "symfony/symfony": "3.*"
+        "php": ">= 7.4",
+        "symfony/symfony": ">= 4.4"
     },
     "autoload": {
         "psr-4": {
-            "Awaresoft\\Sonata\\PageBundle\\": ""
+            "Awaresoft\\Sonata\\PageBundle\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

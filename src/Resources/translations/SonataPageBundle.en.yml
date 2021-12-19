@@ -1,0 +1,6 @@
+site: Site
+form.label_in_cms: CMS
+form.label_route_name: Route name
+form.label_identifier: Identifier
+form.field_group_additional: Additional
+page.admin.help.cms: Page will be available in CMS module

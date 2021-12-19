@@ -1,0 +1,5 @@
+services:
+    Awaresoft\Sonata\PageBundle\DataFixtures\ORM\LoadPageData:
+        tags: ['doctrine.fixture.orm']
+    Awaresoft\Sonata\PageBundle\DataFixtures\ORM\LoadPageDevData:
+        tags: ['doctrine.fixture.orm']
